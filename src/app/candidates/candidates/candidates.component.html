@@ -1,0 +1,65 @@
+
+<div class="toolbar" role="banner">
+    <img
+      height="60"
+      width="90"
+      alt="Angular Logo"
+      src="assets/hrlogo.jpg"
+    />
+    <a [routerLink]="['/']" style="font-size: 30px;margin-right: 200px;">HR Application</a>
+    <a  style="float:none; color: antiquewhite; margin-right: 550px; font-size: 25px;">Candidates</a>
+    <a [routerLink]="['/job-candidate']" style="float:none; margin-left: -100px; font-size: 25px;"> Job Candidates</a>
+      <div class="spacer"></div>
+      
+  </div>
+<form [formGroup]="form">
+    <div style="margin-top:20px;" class="search-box-rooms">
+      <input class="search-txt-rooms" type="text" formControlName="searchTerm" matInput value="" placeholder="Search for..." />
+      <a class="search-btn-rooms">
+        <mat-icon (click)="onSearch()">?</mat-icon>
+      </a>
+    </div>
+  </form>
+
+<div>
+    <h2 style="margin-top:5%; margin-left: 40%" >ALL CANDIDATES</h2>
+  </div>
+    <div style="margin-top: 80px;" class="panel-middle" >
+      <table class="rooms-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birthday</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Remove Candidate</th>
+            <th>Add Skill</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let candidate of candidates ">
+            <td style="width: 250px;">{{candidate.firstname}}</td>
+            <td style="width: 250px;">{{candidate.surname}}</td>
+            <td style="width:  250px;">{{candidate.birthday | date:'yyyy-MM-dd'}} </td>
+            <td style="width: 250px;">{{candidate.phone}}</td>
+            <td style="width: 250px;">{{candidate.email}} </td>
+            <td><button class="button"  routerLink="/update-candidate" [queryParams]="{id: candidate.id}">Candidate skills</button></td>
+            <td><button (click)="onDelete(candidate.id)"  class="button">Delete</button></td>
+            <td style="width: 290px;"> <form  [formGroup]="form1"><mat-form-field  class="input-box">
+                <mat-label style="height: 100px; display:block" >Select skill</mat-label>
+                <mat-select style="height: 40px;"  formControlName="skillId" panelClass="custom-select-panel">
+                  <mat-option style="background-color: rgb(102, 159, 192);" class="mat-select-panel" *ngFor="let skill of skills" [value]="skill.id">
+                    {{ skill.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+                </form></td>
+               <td> <button  (click)="onSave(candidate.id)" class="button">Add skill to candidate</button></td>
+          
+            
+          </tr>
+        </tbody>
+      </table>
+  </div>

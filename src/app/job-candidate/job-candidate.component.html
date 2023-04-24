@@ -1,0 +1,57 @@
+<div class="toolbar" role="banner">
+    <img
+      height="60"
+      width="90"
+      alt="Angular Logo"
+      src="assets/hrlogo.jpg"
+    />
+    <a [routerLink]="['/']" style="font-size: 30px;margin-right: 200px;">HR Application</a>
+    <a [routerLink]="['/candidates']" style="float:none; margin-right: 550px; font-size: 25px;">Candidates</a>
+    <a  style="float:none; margin-left: -100px; font-size: 25px; color: antiquewhite;"> Job Candidates</a>
+      <div class="spacer"></div>
+      
+  </div>
+<form [formGroup]="form">
+    <div style="margin-top:20px;" class="search-box-rooms">
+      <input class="search-txt-rooms" type="text" formControlName="searchTerm" matInput value="" placeholder="Search for..." />
+      <a class="search-btn-rooms">
+        <mat-icon (click)="onSearch()">?</mat-icon>
+      </a>
+    </div>
+  </form>
+
+<div>
+    <h2 style="margin-top:5%; margin-left: 40%">JOB CANDIDATES</h2>
+  </div>
+    <div style="margin-top: 80px;" class="panel-middle" >
+      <table class="rooms-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birthday</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Skill name</th>
+            <th>Remove skill</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let jobCandidate of jobCandidates ">
+            <td style="width: 250px;">{{jobCandidate.firstname}}</td>
+            <td style="width: 250px;">{{jobCandidate.surname}}</td>
+            <td style="width:  250px;">{{jobCandidate.birthday | date:'yyyy-MM-dd'}} </td>
+            <td style="width: 250px;">{{jobCandidate.phone}}</td>
+            <td style="width: 250px;">{{jobCandidate.email}} </td>
+            <td style="width: 250px;">{{jobCandidate.name}} </td>
+            <td><button (click)="onDelete(jobCandidate.id)" class="button">Delete</button></td>
+           
+        
+          
+            
+          </tr>
+        </tbody>
+      </table>
+  </div>
+

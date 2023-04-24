@@ -1,0 +1,107 @@
+<div class="toolbar" role="banner">
+    <img
+      height="60"
+      width="90"
+      alt="Angular Logo"
+      src="assets/hrlogo.jpg"
+    />
+    <a [routerLink]="['/']" style="font-size: 30px;margin-right: 200px;">HR Application</a>
+    <a [routerLink]="['/candidates']" style="float:none; margin-right: 550px; font-size: 25px;">Candidates</a>
+    <a [routerLink]="['/job-candidate']" style="float:none; margin-left: -100px; font-size: 25px;"> Job Candidates</a>
+      <div class="spacer"></div>
+      
+  </div>
+
+<div style="margin-top: 150px;">
+    <p style="font-size: 35px;"><b>Job Candidate</b></p>
+    <p style="font-size: 35px;"><b>Name: {{candidate.firstname}}</b></p>
+    <p style="font-size: 35px;"><b>Surname: {{candidate.surname}}</b></p>
+    <p style="font-size: 35px;"><b>Birthday: {{candidate.birthday| date:'yyyy-MM-dd'}}</b></p>
+    <p style="font-size: 35px;"><b>Phone: {{candidate.phone}}</b></p>
+    <p style="font-size: 35px;"><b>Email: {{candidate.email}}</b></p>
+     <form  [formGroup]="form1"><mat-form-field style="margin-top:5%">
+        <mat-label><b>Select a skill</b></mat-label>
+        <mat-select formControlName="skillId">
+          <mat-option style="background-color: rgb(102, 159, 192);" *ngFor="let skill of skills" [value]="skill.id">
+            {{ skill.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </form>
+       <button style="margin-left:13%; margin-top:-20%;"  (click)="onConfirm(candidate.id)" class="button">Add skill to candidate</button>
+        <a style="margin-left:6%; margin-top:-20%; height:50px;" (click)="editCandidateBox = true" class="button">Update candidate</a>
+      
+</div>
+
+<div>
+    <h2 style="margin-left: 40%; margin-top: -100px;">{{candidate.firstname}}'s Skills</h2>
+  </div>
+    <div class="panel-middle" >
+      <table class="rooms-table">
+        <thead>
+          <tr>
+            <th>Skill name</th>
+            <th>Update skill</th>
+            <th>Remove skill</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let jobCandidate of jobCandidates ">
+            <td style="width: 250px;">{{jobCandidate.skill.name}} </td>
+            <td> <form  [formGroup]="form2"><mat-form-field >
+                <mat-label>Select a skill</mat-label>
+                <mat-select formControlName="skillId">
+                  <mat-option style="background-color: rgb(102, 159, 192);" *ngFor="let skill of skills" [value]="skill.id">
+                    {{ skill.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+               
+             <button  (click)="onSave1(jobCandidate.id)" class="button">Update skill</button></form> </td>
+            <td><button (click)="onDelete(jobCandidate.id)" class="button">Remove skill</button></td>
+            
+        
+          
+            
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div style="margin-left: 40%" class="example-form" *ngIf="editCandidateBox">
+    <h1>Edit {{candidate.firstname}}'s informations</h1>
+      <form [formGroup]="form">
+        <div class="double-input">
+          <mat-form-field class="input-box" appearance="outline">
+              <mat-label>First name</mat-label>
+              <input  style="height:70px;" matInput placeholder="Input" formControlName="firstname">
+          </mat-form-field>
+          <mat-form-field class="input-box" appearance="outline">
+              <mat-label>Last name</mat-label>
+              <input  style="height:70px;" matInput placeholder="Input" formControlName="surname" >
+          </mat-form-field>
+        </div>  
+        <div class="double-input">
+          <mat-form-field style="width: 410px;" class="input-box" appearance="outline">
+              <mat-label>Date of birth</mat-label>
+              <input  style="height:70px;" matInput type="date" formControlName="birthday" >
+          </mat-form-field>
+          </div>
+          <div class="double-input">
+          <mat-form-field style="width: 210px;" class="input-box" appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input  style="height:70px;" matInput placeholder="Input" placeholder="" formControlName="phone" >
+          </mat-form-field>
+        
+        
+            <mat-form-field class="input-box"  appearance="outline">
+                <mat-label>Email</mat-label>
+                <input  style="height:70px;" matInput placeholder="Input"  formControlName="email">
+              </mat-form-field>
+            </div>
+        
+        <button style="margin-left: -10%" class="button" (click)="editCandidateBox = false">Cancel</button>
+        <button style="margin-left: -70%" class="button" (click)="onSave()">Save changes</button>
+      </form>
+    </div>
